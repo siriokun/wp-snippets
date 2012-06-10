@@ -1,0 +1,15 @@
+@charset "utf-8";
+/*
+Theme Name: WP Snippets
+Theme URI: http://siriokun.com/
+Description: Usefull code examples for creating WordPress themes. A lot of snippets in one theme. Use this theme for refference to create your own theme.
+Author: Rio Purnomo
+Author URI: http://siriokun.com/
+*/
+body { margin: 0; }
+a {
+	color:#36f;
+	text-decoration: none;
+}
+a:hover { color: #555; }
+img { border: 0; }
