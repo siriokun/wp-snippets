@@ -1,4 +1,17 @@
-<?php 
+<?php
+/**
+ * Hide Welcome Panel for WordPress Multisite
+ * @link http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
+ */
+function si_hide_welcome_panel_for_multisite() {
+	
+	if ( ! is_multisite() ) // don't check, if you will use this on single install of WP
+		return;
+	
+	if ( 2 === (int) get_user_meta( get_current_user_id(), 'show_welcome_panel', TRUE ) )
+		update_user_meta( get_current_user_id(), 'show_welcome_panel', 0 );
+}
+add_action( 'load-index.php', 'si_hide_welcome_panel_for_multisite' );
 /**
  * Move Featured Image Metabox on 'gallery' post type
  * @author Bill Erickson
@@ -32,6 +45,15 @@ function si_move_textarea( $input = array () )
 }
 add_action( 'comment_form_defaults', 'si_move_textarea' );
 add_action( 'comment_form_top', 'si_move_textarea' );
+/**
+ * Remove WordPress Comment Form URL field
+ * @link https://forrst.com/posts/Remove_WordPress_Comment_Form_URL_field-22J
+ */
+function si_hide_comment_url($fields) {
+    unset($fields['url']);
+    return $fields;
+}
+add_filter('comment_form_default_fields','si_hide_comment_url');
 /**
  * Fills the default content for post type 'post' if it is not empty.
  * See wp-admin/includes/post.php function get_default_post_to_edit()
@@ -143,3 +165,12 @@ class Simple_Walker_Nav_Menu extends Walker_Nav_Menu
 		$output .= '</li>';
 	}
 }
+/**
+ * Remove inline CSS generated on wp_head when Recent Comments widget active.
+ * @link https://gist.github.com/2887406
+ */
+function si_remove_recent_comments_css() {  
+        global $wp_widget_factory;  
+        remove_action( 'wp_head', array( $wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style' ) );  
+    }  
+add_action( 'widgets_init', 'si_remove_recent_comments_css' );
