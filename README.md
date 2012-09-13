@@ -5,8 +5,9 @@ WP Snippets
 
 > Usefull code examples for creating WordPress themes. A lot of snippets in one theme. Use this theme for refference to create your own theme.
 
-License
+TO DO
 -------------------------
 
-CC-BY 3.0 Rio Purnomo
-http://creativecommons.org/licenses/by/3.0/
+* Export specific snippets into plugins
+* Child theme support
+* Demo site
