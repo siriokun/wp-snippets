@@ -7,9 +7,6 @@ Author: Rio Purnomo
 Author URI: http://siriokun.com/
 */
 body { margin: 0; }
-a {
-	color:#36f;
-	text-decoration: none;
-}
+a { color: #36f; text-decoration: none; }
 a:hover { color: #555; }
 img { border: 0; }

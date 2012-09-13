@@ -14,7 +14,6 @@
 <link href="style.css" rel="stylesheet" type="text/css" media="all">
 <?php wp_head(); ?>
 </head>
-
 <body>
 <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">
   <?php bloginfo( 'name' ); ?>
