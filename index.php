@@ -15,16 +15,22 @@
 <?php wp_head(); ?>
 </head>
 <body>
-<h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-  <?php bloginfo( 'name' ); ?>
-  </a></h1>
-<p>
-  <?php bloginfo( 'description' ); ?>
-</p>
-<hr>
-<p><?php echo date('Y'); ?> &copy;
-  <?php bloginfo( 'name' ); ?>
-</p>
+<div class="layout">
+  <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+    <?php bloginfo( 'name' ); ?>
+    </a></h1>
+  <p>
+    <?php bloginfo( 'description' ); ?>
+  </p>
+  <?php if ( is_active_sidebar( 'sidebar' ) ) {  ?>
+  <hr>
+  <?php dynamic_sidebar('sidebar'); ?>
+  <?php } // end is_active_sidebar ?>
+  <hr>
+  <p><?php echo date('Y'); ?> &copy;
+    <?php bloginfo( 'name' ); ?>
+  </p>
+</div>
 <?php wp_footer(); ?>
 </body>
 </html>

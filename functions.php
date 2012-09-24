@@ -1,4 +1,55 @@
 <?php
+// Add Widget Support
+if ( function_exists('register_sidebar') ) {
+    register_sidebar(array(
+		'name' => __( 'Sidebar' ),
+		'id' => 'sidebar',
+		'description' => __( '' ),
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+		'before_widget' => '<div class="widget %2$s">',
+		'after_widget'  => '</div>',
+	));
+}
+/**
+ * HTML Widget
+ * @link https://gist.github.com/884827
+ */
+class WP_Widget_HTML extends WP_Widget {
+
+  function WP_Widget_HTML() {
+    $widget_ops = array('classname' => 'widget_html', 'description' => 'Custom HTML Snippet');
+    $control_ops = array('width' => 400, 'height' => 350);
+    $this->WP_Widget('html', __('HTML'), $widget_ops, $control_ops);
+  }
+
+  function widget( $args, $instance ) {
+    add_filter('widget_html', 'do_shortcode');
+    extract($args);
+    $html = apply_filters('widget_html', $instance['html'], $instance );
+    echo $before_widget;
+    echo $html;
+    echo $after_widget;
+  }
+
+  function update( $new_instance, $old_instance ) {
+    $instance = $old_instance;
+    if ( current_user_can('unfiltered_html') )
+      $instance['html'] = $new_instance['html'];
+    else
+      $instance['html'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['html']) ) ); // wp_filter_post_kses() expects slashed
+      return $instance;
+  }
+
+  function form( $instance ) {
+    $instance = wp_parse_args( (array) $instance, array( 'html' => '' ) );
+    $html = format_to_edit($instance['html']);
+?>
+<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('html'); ?>" name="<?php echo $this->get_field_name('html'); ?>"><?php echo $html; ?></textarea>
+<?php
+  }
+}
+register_widget('WP_Widget_HTML');
 /**
  * Hide Welcome Panel for WordPress Multisite
  * @link http://wpengineer.com/2470/hide-welcome-panel-for-wordpress-multisite/
