@@ -11,3 +11,8 @@ TO DO
 * Export specific snippets into plugins
 * Child theme support
 * Demo site
+
+LICENSE
+-------------------------
+
+No licence
